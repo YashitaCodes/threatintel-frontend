@@ -1,5 +1,3 @@
-// @ts-nocheck
-/* eslint-disable */
 import { Metadata } from 'next';
 import { Bookmark, Share, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,7 +6,13 @@ import Link from 'next/link';
 import ArticleHeader from '@/components/ArticleHeader';
 import { fetchArticleById } from '@/lib/api';
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+type Props = {
+  params: {
+    id: string
+  }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const article = await fetchArticleById(params.id);
     return { 
@@ -23,9 +27,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-export default async function ArticlePage({
-  params,
-}: any) {
+export default async function ArticlePage({ params }: Props) {
   try {
     const article = await fetchArticleById(params.id);
 
