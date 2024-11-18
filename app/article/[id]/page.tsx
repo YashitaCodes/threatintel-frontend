@@ -6,13 +6,14 @@ import Link from 'next/link';
 import ArticleHeader from '@/components/ArticleHeader';
 import { fetchArticleById } from '@/lib/api';
 
-type Props = {
+interface PageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
     const article = await fetchArticleById(params.id);
     return { 
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function ArticlePage({ params }: Props) {
+export default async function ArticlePage({ params, searchParams }: PageProps) {
   try {
     const article = await fetchArticleById(params.id);
 
