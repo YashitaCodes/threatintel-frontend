@@ -23,9 +23,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
 export default async function ArticlePage({
   params,
-}: {
-  params: { id: string }
-}) {
+}: any) {
   try {
     const article = await fetchArticleById(params.id);
 
