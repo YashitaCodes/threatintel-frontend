@@ -6,13 +6,6 @@ import Link from 'next/link';
 import ArticleHeader from '@/components/ArticleHeader';
 import { fetchArticleById } from '@/lib/api';
 
-type ArticlePageProps = {
-  params: {
-    id: string;
-  };
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   try {
     const article = await fetchArticleById(params.id);
@@ -28,7 +21,11 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-export default async function ArticlePage({ params }: ArticlePageProps) {
+export default async function ArticlePage({
+  params,
+}: {
+  params: { id: string }
+}) {
   try {
     const article = await fetchArticleById(params.id);
 
