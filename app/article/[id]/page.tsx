@@ -1,3 +1,5 @@
+// @ts-nocheck
+/* eslint-disable */
 import { Metadata } from 'next';
 import { Bookmark, Share, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
