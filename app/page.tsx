@@ -1,24 +1,15 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ArticleList from '@/components/ArticleList';
 import LeftSidebar from '@/components/LeftSidebar';
 import RightSidebar from '@/components/RightSidebar';
 import Header from '@/components/Header';
 
-interface Filters {
-  topics: string[];
-  sources: string[];
-  dateRange: {
-    from?: Date | undefined;
-    to?: Date | undefined;
-  };
-}
-
-export default function Home() {
+function HomeContent() {
   const searchParams = useSearchParams();
-  const [filters, setFilters] = useState<Filters>({
+  const [filters, setFilters] = useState({
     topics: [],
     sources: [],
     dateRange: { from: undefined, to: undefined }
@@ -26,11 +17,11 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const shouldFocus = searchParams.get('focus') === 'search';
 
-  const handleFilterChange = (newFilters: Filters) => {
+  const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
   };
 
-  const handleSearch = (term: string) => {
+  const handleSearch = (term) => {
     setSearchTerm(term);
   };
 
@@ -46,5 +37,13 @@ export default function Home() {
         <RightSidebar className="w-full lg:w-64 lg:flex-shrink-0" />
       </div>
     </>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
