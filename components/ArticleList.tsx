@@ -103,7 +103,7 @@ export default function ArticleList({ filters, searchTerm = '' }: ArticleListPro
             </div>
             <span className="text-sm text-muted-foreground">{article.date}</span>
           </div>
-          <Link href={`/article/${article.id}`} className="hover:underline">
+          <Link href={article.sourceUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
             <h2 className="text-lg sm:text-xl font-semibold mb-2">{article.title}</h2>
           </Link>
           <p className="text-muted-foreground mb-4">{article.snippet}</p>
