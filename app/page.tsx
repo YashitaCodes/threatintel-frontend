@@ -7,9 +7,18 @@ import LeftSidebar from '@/components/LeftSidebar';
 import RightSidebar from '@/components/RightSidebar';
 import Header from '@/components/Header';
 
+interface Filters {
+  topics: string[];
+  sources: string[];
+  dateRange: {
+    from: Date | undefined;
+    to: Date | undefined;
+  };
+}
+
 function HomeContent() {
   const searchParams = useSearchParams();
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     topics: [],
     sources: [],
     dateRange: { from: undefined, to: undefined }
@@ -17,11 +26,11 @@ function HomeContent() {
   const [searchTerm, setSearchTerm] = useState('');
   const shouldFocus = searchParams.get('focus') === 'search';
 
-  const handleFilterChange = (newFilters) => {
+  const handleFilterChange = (newFilters: Filters) => {
     setFilters(newFilters);
   };
 
-  const handleSearch = (term) => {
+  const handleSearch = (term: string) => {
     setSearchTerm(term);
   };
 
@@ -40,6 +49,7 @@ function HomeContent() {
   );
 }
 
+// Main page component with Suspense boundary
 export default function Home() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
